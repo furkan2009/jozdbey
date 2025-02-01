@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOZD HACKED</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: black;
+            text-align: center;
+        }
+        #logo {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            border: 5px solid white;
+            animation: blink 1s infinite alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        @keyframes blink {
+            0% { border-color: white; }
+            100% { border-color: red; }
+        }
+        #matrix {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            font-size: 1.5em;
+            color: lime;
+            line-height: 1.2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        #matrix span {
+            animation: scroll 2s linear infinite;
+            display: block;
+            font-weight: bold;
+            color: red;
+        }
+        @keyframes scroll {
+            0% { transform: translateY(200px); }
+            100% { transform: translateY(-200px); }
+        }
+        #jozd-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em;
+            font-weight: bold;
+        }
+        #contact {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            font-size: 1.2em;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Yanıp sönen çerçeve -->
+    <div id="logo">
+        <!-- Matrix ve kayan yazı -->
+        <div id="matrix">
+            <span>JOZD HACKED TEAM</span>
+            <span>JOZD HACKED TEAM</span>
+            <span>JOZD HACKED TEAM</span>
+        </div>
+    </div>
+
+    <!-- Ana metin -->
+    <div id="jozd-text">JOZD HACKED</div>
+
+    <!-- İletişim bilgisi -->
+    <div id="contact">İletişim: <a href="https://instagram.com/exe.jozd" target="_blank" style="color: white; text-decoration: none;">@exe.jozd</a></div>
+
+    <!-- Kar tanesi efekti -->
+    <canvas id="snow"></canvas>
+
+    <script>
+        // Kar tanesi efekti
+        const canvas = document.getElementById('snow');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let snowflakes = [];
+
+        function createSnowflakes() {
+            const count = 100;
+            for (let i = 0; i < count; i++) {
+                snowflakes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    opacity: Math.random(),
+                    speedX: Math.random() * 2 - 1,
+                    speedY: Math.random() * 3 + 1,
+                    radius: Math.random() * 4 + 1
+                });
+            }
+        }
+
+        function drawSnowflakes() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            snowflakes.forEach(snowflake => {
+                ctx.globalAlpha = snowflake.opacity;
+                ctx.moveTo(snowflake.x, snowflake.y);
+                ctx.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2);
+            });
+            ctx.fill();
+        }
+
+        function moveSnowflakes() {
+            snowflakes.forEach(snowflake => {
+                snowflake.x += snowflake.speedX;
+                snowflake.y += snowflake.speedY;
+
+                if (snowflake.y > canvas.height) {
+                    snowflake.y = 0;
+                }
+                if (snowflake.x > canvas.width || snowflake.x < 0) {
+                    snowflake.x = Math.random() * canvas.width;
+                }
+            });
+        }
+
+        function update() {
+            drawSnowflakes();
+            moveSnowflakes();
+            requestAnimationFrame(update);
+        }
+
+        createSnowflakes();
+        update();
+    </script>
+</body>
+</html>
