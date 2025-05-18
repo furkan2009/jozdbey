@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Steady4nfllx</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: monospace;
+      background: black;
+      color: white;
+      text-align: center;
+    }
+    #logo {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 200px;
+      border: 5px solid white;
+      animation: blink 1s infinite alternate;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      z-index: 2;
+    }
+    @keyframes blink {
+      0% { border-color: white; }
+      100% { border-color: red; }
+    }
+    #matrix-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: black;
+      z-index: 0;
+    }
+    #logo-text {
+      position: absolute;
+      z-index: 3;
+      font-size: 1.5em;
+      color: white;
+    }
+    #jozd-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4em;
+      font-weight: bold;
+      z-index: 2;
+    }
+    #contact {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      font-size: 1.2em;
+      z-index: 2;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Yanıp sönen çerçeve -->
+  <div id="logo">
+    <canvas id="matrix-canvas" width="200" height="200"></canvas>
+    <div id="logo-text">Steady4nfllx HACKED</div>
+  </div>
+
+  <!-- Ortadaki yazı -->
+  <div id="jozd-text">Steady4nfllx TEAM</div>
+
+  <!-- İletişim -->
+  <div id="contact">
+    İletişim: <a href="https://instagram.com/exe.jozd" target="_blank" style="color: white; text-decoration: none;">@Steady4nfllx</a>
+  </div>
+
+  <!-- Kar tanesi efekti -->
+  <canvas id="snow"></canvas>
+
+  <!-- Matrix içi animasyon -->
+  <script>
+    const canvasMatrix = document.getElementById("matrix-canvas");
+    const ctxMatrix = canvasMatrix.getContext("2d");
+
+    const w = canvasMatrix.width;
+    const h = canvasMatrix.height;
+    const letters = "01アソシエイトドカクジズビプメ".split("");
+    const fontSize = 14;
+    const columns = Math.floor(w / fontSize);
+    const drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+      ctxMatrix.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctxMatrix.fillRect(0, 0, w, h);
+
+      ctxMatrix.fillStyle = "#0F0";
+      ctxMatrix.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctxMatrix.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > h && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 50);
+  </script>
+
+  <!-- Kar efekti -->
+  <script>
+    const canvas = document.getElementById('snow');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let snowflakes = [];
+
+    function createSnowflakes() {
+      for (let i = 0; i < 100; i++) {
+        snowflakes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          opacity: Math.random(),
+          speedX: Math.random() * 2 - 1,
+          speedY: Math.random() * 3 + 1,
+          radius: Math.random() * 4 + 1
+        });
+      }
+    }
+
+    function drawSnowflakes() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      snowflakes.forEach(s => {
+        ctx.globalAlpha = s.opacity;
+        ctx.moveTo(s.x, s.y);
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+      });
+      ctx.fill();
+    }
+
+    function moveSnowflakes() {
+      snowflakes.forEach(s => {
+        s.x += s.speedX;
+        s.y += s.speedY;
+        if (s.y > canvas.height) s.y = 0;
+        if (s.x > canvas.width || s.x < 0) s.x = Math.random() * canvas.width;
+      });
+    }
+
+    function updateSnow() {
+      drawSnowflakes();
+      moveSnowflakes();
+      requestAnimationFrame(updateSnow);
+    }
+
+    createSnowflakes();
+    updateSnow();
+  </script>
+</body>
+</html>
